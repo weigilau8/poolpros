@@ -1,0 +1,30 @@
+{
+  "name": "poolpro",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "font-awesome": "^4.7.0",
+    "gulp": "^3.9.1",
+    "gulp-changed": "^3.2.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^3.0.0",
+    "gulp-watch": "^5.0.0",
+    "npm-font-open-sans": "^1.1.0",
+    "react": "^16.2.0",
+    "react-bootstrap": "^0.32.1",
+    "react-dom": "^16.2.0",
+    "react-fontawesome": "^1.6.1",
+    "react-responsive-modal": "^2.0.1",
+    "react-scripts": "1.1.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "gulp-clean-css": "^3.9.2",
+    "gulp-sass": "^3.1.0"
+  }
+}

@@ -1,0 +1,40 @@
+
+$mainColor:  #083d8c;
+$someThingBlue: #216ddf;
+$findButton: #a0b5d5;
+$contactButton: #02c7c6;
+$searchDealers: #f6f6f6;
+$checkedBorder: #d8d8d8;
+$borderRight: #ececec;
+$black: #010000;
+$white: #ffffff;
+$lightGrey: #e6e6e6e6;
+$darkGrey: #333;
+$red: #ff1755;
+$panelFontColor: #3f3f3f;
+$optional: #bebebe;
+$modalBody: #616161;
+
+$break-small: 320px;
+$break-medium: 767px;
+$break-large: 1200px;
+
+body{
+    font-family: 'Open Sans', sans-serif;
+    font-size: 18px;
+    color: $black;
+    font-weight: 400;
+    font-style: normal;
+}
+
+@mixin translateY($e){
+    -webkit-transform: translate($e);
+        -moz-transform: translate($e);
+            transform: translate($e);
+}
+
+@mixin transition($e){
+    -webkit-transition: translate($e);
+        -moz-transition: translate($e);
+            transition: translate($e);
+}
