@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import { Media } from 'react-bootstrap';
-import { Jumbotron } from 'react-bootstrap';
 import { ButtonToolbar } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
 import { FormGroup } from 'react-bootstrap';
@@ -11,27 +10,45 @@ import { Row } from 'react-bootstrap';
 import { Col } from 'react-bootstrap';
 import { Well } from 'react-bootstrap';
 import { Panel } from 'react-bootstrap';
-import Modal from "react-responsive-modal";
-import Modaled from '../modalComponent/modaled';
 import { SplitButton } from 'react-bootstrap';
 import { MenuItem } from 'react-bootstrap';
-import data from '../../dealers.json';
+import Modal from "react-responsive-modal";
+import Modaled from '../modalComponent/modaled';
 
-console.log(data);
+// import data from '../../dealers.json';
+
+// console.log(data);
 
 class Homepage extends Component {
+    constructor(){
+        super();
+        this.state= {
+            data: [],
+        }
+    }
 
+    componentDidMount(){
+        fetch('https://raw.githubusercontent.com/weigilau8/poolpros/master/dealers.json').
+        then((Response)=>Response.json()).
+        then((findresponse) =>
+        {
+            console.log(findresponse.dealers)
+            this.setState({
+                data:findresponse.dealers,
+            })
+        })
+    }
     state = {
         open: false,
-      };
+    };
     
-      onOpenModal = () => {
-          this.setState({ open: true });
-      };
+    onOpenModal = () => {
+        this.setState({ open: true });
+    };
     
-      onCloseModal = () => {
-          this.setState({ open: false });
-      };
+    onCloseModal = () => {
+        this.setState({ open: false });
+    };
 
     render() {
         const { open } = this.state;
@@ -39,10 +56,10 @@ class Homepage extends Component {
         function renderDropdownButton(title, i) {
             
             return (
-                <SplitButton bsStyle={title.toLowerCase()} title={title} key={i} id={`split-button-basic-${i}`} >
+                <SplitButton  title={title} key={i} id={`split-button-basic-${i}`} >
                     <MenuItem eventKey="1">
                         <FormGroup>
-                            <Checkbox inline className="deals" checked>
+                            <Checkbox inline className="deals">
                                 <span className="check"></span> Service
                             </Checkbox>
                         </FormGroup>
@@ -75,6 +92,14 @@ class Homepage extends Component {
         const buttonsInstance = (
             <ButtonToolbar>{BUTTONS.map(renderDropdownButton)}</ButtonToolbar>
         );
+
+        function certificates(){
+            {
+                this.state.data.map((dynamicData,key) =>
+            {dynamicData.data.weekHours.fri}
+                )}
+            console.log('vv');
+        }
         
         return (
             <div id="mainHomePage">
@@ -135,131 +160,64 @@ class Homepage extends Component {
                     <Row className="show-grid paneling">
 
                         
-                        <Col md={4} sm={4}>
-                            <Panel >
-                                <Panel.Body>
-                                    
-                                    <Media>
-                                        <Media.Body>
-                                            <Media.Heading>Aqua Experts</Media.Heading>
-
-                                            <h3 className="mediaNumber"><span className="fa fa-phone"/> <span className="tap"/> 1.888.888.8888</h3>
+                        {
+                            this.state.data.map((dynamicData,key) =>
+                                <Col md={4} sm={4}>
+                                    <Panel >
+                                        <Panel.Body>
                                             
-                                            <p className="mediaSubHeading">Can’t talk now? Click below to send an email.</p>
-                                            
-                                            <ButtonToolbar className="theCenterFlex">
-                                                <Button  onClick={this.onOpenModal}><span className="fa fa-envelope" /> Contact this Pro</Button>
-                                            </ButtonToolbar>
+                                            <Media>
+                                                <Media.Body>
+                                                    <Media.Heading>{dynamicData.data.name}</Media.Heading>
 
-                                            <h5>Business Hours</h5>
-                                            <p>Weekdays 7:00am - 7:00pm</p>
-                                            <p>Saturdays 7:00am - 3:00pm</p>
-                                            <p>Sundays - CLOSED</p>
-                                        </Media.Body>
-                                    </Media>
-                                </Panel.Body>
-                                <Panel.Footer>
-                                    <Row>
-                                        <Col md={6} xs={6}>
-                                            <span className="fa fa-star"></span> Installaion Pro 
-                                        </Col>
-                                        <Col md={6} xs={6}>
-                                            <span className="fa fa-gear"></span> Service Pro
-                                        </Col>
-                                        <Col md={6} xs={6}>
-                                            <span className="fa fa-home"></span> Residential Pro 
-                                        </Col>
-                                    </Row>
-                                    
-                                </Panel.Footer>
-                            </Panel>
-                        </Col>
-                        <Col md={4} sm={4}>
-                            <Panel >
-                                <Panel.Body>
-                                    
-                                    <Media>
-                                        <Media.Body>
-                                            <Media.Heading>Premium Pools & Spas of Charlotte</Media.Heading>
+                                                    <h3 className="mediaNumber"><span className="fa fa-phone"/> <span className="tap"/> {dynamicData.data.phone1}</h3>
+                                                    
+                                                    <p className="mediaSubHeading">Can’t talk now? Click below to send an email.</p>
+                                                    
+                                                    <ButtonToolbar className="theCenterFlex">
+                                                        <Button bsStyle="contact" onClick={this.onOpenModal}><span className="fa fa-envelope" /> Contact this Pro</Button>
+                                                    </ButtonToolbar>
 
-                                            <h3 className="mediaNumber"><span className="fa fa-phone"/> <span className="tap"/> 1.888.888.8888</h3>
+                                                    <h5>Business Hours</h5>
+                                                    {
+                                                        this.state.data.map((dynamicData,key) =>
+                                                        <p>Weekdays {dynamicData.data.weekHours.fri}</p>
+                                                        )
+                                                    }
+                                                   
+                                                    {/* <p>Saturdays 7:00am - 3:00pm</p> */}
+                                                    {/* <p>Sundays - CLOSED</p> */}
+                                                </Media.Body>
+                                            </Media>
+                                        </Panel.Body>
+                                        <Panel.Footer>
+                                            <Row>
+                                                <Col md={6} xs={6}>
+                                                {
+                                                    this.state.data.map((data) =>
+                                                    <p>Weekdays {dynamicData.data.weekHours.fri}</p>
+                                                )
+                                                }
+                                                    <span className="fa fa-star"></span> {dynamicData.data.certifications[0]}
+                                                </Col>
+                                                <Col md={6} xs={6}>
+                                                    <span className="fa fa-gear"></span> {dynamicData.data.certifications[1]}
+                                                </Col>
+                                                <Col md={6} xs={6}>
+                                                    <span className="fa fa-home"></span> {dynamicData.data.certifications[2]}
+                                                </Col>
+                                                <Col md={6} xs={6}>
+                                                    <span className="fa fa-group"></span> {dynamicData.data.certifications[3]}
+                                                </Col>
+                                            </Row>
                                             
-                                            <p className="mediaSubHeading">Can’t talk now? Click below to send an email.</p>
-                                            
-                                            <ButtonToolbar className="theCenterFlex">
-                                                <Button onClick={this.onOpenModal}><span className="fa fa-envelope" /> Contact this Pro</Button>
-                                            </ButtonToolbar>
-
-                                            <h5>Business Hours</h5>
-                                            <p>Weekdays 7:00am - 7:00pm</p>
-                                            <p>Saturdays 7:00am - 3:00pm</p>
-                                            <p>Sundays - CLOSED</p>
-                                        </Media.Body>
-                                    </Media>
-                                </Panel.Body>
-                                <Panel.Footer>
-                                    <Row>
-                                        <Col md={6} xs={6}>
-                                            <span className="fa fa-star"></span> Installaion Pro 
-                                        </Col>
-                                        <Col md={6} xs={6}>
-                                            <span className="fa fa-gear"></span> Service Pro
-                                        </Col>
-                                        <Col md={6} xs={6}>
-                                            <span className="fa fa-home"></span> Residential Pro 
-                                        </Col>
-                                        <Col md={6} xs={6}>
-                                            <span className="fa fa-group"></span> Commercial Pro
-                                        </Col>
-                                    </Row>
+                                        </Panel.Footer>
+                                    </Panel>
                                     
-                                </Panel.Footer>
-                            </Panel>
-                        </Col>
-                        <Col md={4} sm={4}>
-                            <Panel >
-                                <Panel.Body>
-                                    
-                                    <Media>
-                                        <Media.Body>
-                                            <Media.Heading>Carolina Pool Specialists</Media.Heading>
-
-                                            <h3 className="mediaNumber"><span className="fa fa-phone"/>  <span className="tap"/> 1.888.888.8888</h3>
-                                            
-                                            <p className="mediaSubHeading">Can’t talk now? Click below to send an email.</p>
-                                            
-                                            <ButtonToolbar className="theCenterFlex">
-                                                <Button  onClick={this.onOpenModal}><span className="fa fa-envelope" /> Contact this Pro</Button>
-                                            </ButtonToolbar>
-
-                                            <h5>Business Hours</h5>
-                                            <p>Weekdays 7:00am - 7:00pm</p>
-                                            <p>Saturdays 7:00am - 3:00pm</p>
-                                            <p>Sundays - CLOSED</p>
-                                        </Media.Body>
-                                    </Media>
-                                </Panel.Body>
-                                <Panel.Footer>
-                                    <Row>
-                                        <Col md={6} xs={6}>
-                                            <span className="fa fa-star"></span> Installaion Pro 
-                                        </Col>
-                                        <Col md={6} xs={6}>
-                                            <span className="fa fa-gear"></span> Service Pro
-                                        </Col>
-                                        <Col md={6} xs={6}>
-                                            <span className="fa fa-home"></span> Residential Pro 
-                                        </Col>
-                                        <Col md={6} xs={6}>
-                                            <span className="fa fa-group"></span> Commercial Pro
-                                        </Col>
-                                    </Row>
-                                    
-                                    
-                                    
-                                </Panel.Footer>
-                            </Panel>
-                        </Col>
+                                </Col>
+                            )
+                        }
+                        
                     </Row>
 
                     

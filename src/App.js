@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 import './Assets/css/default.min.css';
 import 'react-responsive-modal/lib/react-responsive-modal.css';
-import Modal from 'react-responsive-modal/lib/css';
 
 import Header from './components/headerComponent/header';
 import Homepage from './components/pages/homePage';
