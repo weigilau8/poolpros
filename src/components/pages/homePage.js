@@ -20,22 +20,23 @@ import Modaled from '../modalComponent/modaled';
 // console.log(data);
 
 class Homepage extends Component {
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state= {
             data: [],
         }
     }
 
     componentDidMount(){
-        fetch('https://raw.githubusercontent.com/weigilau8/poolpros/master/dealers.json').
-        then((Response)=>Response.json()).
-        then((findresponse) =>
+        fetch('https://raw.githubusercontent.com/weigilau8/poolpros/master/dealers.json')
+        .then((Response)=>Response.json())
+        .then((findresponse) =>
         {
-            console.log(findresponse.dealers)
             this.setState({
                 data:findresponse.dealers,
             })
+            console.log(findresponse.dealers.weekHours)
+            
         })
     }
     state = {
