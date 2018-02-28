@@ -15,47 +15,34 @@ import { MenuItem } from 'react-bootstrap';
 import Modal from "react-responsive-modal";
 import Modaled from '../modalComponent/modaled';
 
-// import data from '../../dealers.json';
-
-// console.log(data);
-
 class Homepage extends Component {
     constructor(props){
         super(props);
-        this.state= {
-            data: [],
-        }
+        this.state= { data: [] };
     }
 
     componentDidMount(){
         fetch('https://raw.githubusercontent.com/weigilau8/poolpros/master/dealers.json')
         .then((Response)=>Response.json())
-        .then((findresponse) =>
-        {
-            this.setState({
-                data:findresponse.dealers,
-            })
+        .then((findresponse) => {
+            this.setState({ data:findresponse.dealers })
             console.log(findresponse.dealers.weekHours)
             
         })
     }
-    state = {
-        open: false,
-    };
     
-    onOpenModal = () => {
-        this.setState({ open: true });
-    };
-    
-    onCloseModal = () => {
-        this.setState({ open: false });
-    };
+    state = { open: false };
+    onOpenModal = () => { this.setState({ open: true }); };
+    onCloseModal = () => { this.setState({ open: false }); };
 
     render() {
         const { open } = this.state;
         const BUTTONS = ['Filter Results'];
+        const buttonsInstance = (
+            <ButtonToolbar>{BUTTONS.map(renderDropdownButton)}</ButtonToolbar>
+        );
+
         function renderDropdownButton(title, i) {
-            
             return (
                 <SplitButton  title={title} key={i} id={`split-button-basic-${i}`} >
                     <MenuItem eventKey="1">
@@ -90,18 +77,6 @@ class Homepage extends Component {
             );
         }
 
-        const buttonsInstance = (
-            <ButtonToolbar>{BUTTONS.map(renderDropdownButton)}</ButtonToolbar>
-        );
-
-        function certificates(){
-            {
-                this.state.data.map((dynamicData,key) =>
-            {dynamicData.data.weekHours.fri}
-                )}
-            console.log('vv');
-        }
-        
         return (
             <div id="mainHomePage">
                 <div className="container finding">
@@ -159,7 +134,6 @@ class Homepage extends Component {
 
                 <Grid>
                     <Row className="show-grid paneling">
-
                         
                         {
                             this.state.data.map((dynamicData,key) =>
